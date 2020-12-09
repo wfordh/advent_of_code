@@ -7,6 +7,9 @@ Language: Python
 
 import re
 
+def dfs():
+	pass
+
 
 def main():
 	infile_path = "../../../data/2020_day_7.txt"
@@ -36,7 +39,8 @@ def main():
 		this_bag = [contained_bags]
 		while queue:
 			current = queue.pop(0)
-			print(current)
+			print(bag_colors[current])
+			print(this_bag)
 			if bag[current] > 0:
 				print(bag[current])
 				this_bag.append(contained_bags[current])
