@@ -1,7 +1,7 @@
 """
 Advent of Code 2020
 Day: 9
-Puzzle: 1
+Puzzle: 2
 Language: Python
 """
 
