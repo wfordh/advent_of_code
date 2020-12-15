@@ -5,12 +5,6 @@ Puzzle: 2
 Language: Python
 """
 
-direction_map = {
-    90: (),
-    180: "W",
-    270: "S",
-}
-
 
 def follow_instruction(instruction, ship_posn, waypoint_posn):
     action = instruction[0]
