@@ -17,13 +17,11 @@ def do_calcs(exp_list):
 			res *= int(exp_list[idx + 1])
 		elif elem == "+":
 			res += int(exp_list[idx + 1])
-
 	return str(res)
 
 def reduce_parens(exp):
-	# does not work if more than two terms within parens
-	# ^ still struggling here
-	exp_match = re.search(r"\(\d+ [+*] \d+\)", exp).group()
+	# need to work on nested parens
+	exp_match = re.search(r"\(.*\)", exp).group()
 	# keep the match
 	print(exp_match)
 	m = re.sub(r"[\(\)]", "", exp_match).split()
@@ -40,7 +38,7 @@ def main():
     	data = [x.strip() for x in infile.readlines()]
 
     result = 0
-    foo = "5 + (8 * 3 + 9 + 3 * 4 * 3)"
+    foo = "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))"
     print(foo)
     while "(" in foo:
     	print(foo)
@@ -49,10 +47,6 @@ def main():
     print(foo)
     print(do_calcs(foo.split())) # won't work with mult left over?
 
-    # search for parens with matching close parens
-    # get operator
-    # do operation
-    # return result with parens removed
 
 if __name__ == '__main__':
 	main()
