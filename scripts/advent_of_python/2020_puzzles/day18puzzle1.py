@@ -8,16 +8,27 @@ Language: Python
 from ast import literal_eval
 import re
 
+def do_calcs(exp_list):
+	res = 0
+	for idx, elem in enumerate(exp_list):
+		if idx == 0:
+			res += int(elem)
+		if elem == "*":
+			res *= int(exp_list[idx + 1])
+		elif elem == "+":
+			res += int(exp_list[idx + 1])
+
+	return str(res)
+
 def reduce_parens(exp):
+	# does not work if more than two terms within parens
+	# ^ still struggling here
 	exp_match = re.search(r"\(\d+ [+*] \d+\)", exp).group()
 	# keep the match
 	print(exp_match)
 	m = re.sub(r"[\(\)]", "", exp_match).split()
-	if m[1] == "*":
-		new_sub = str(int(m[0])*int(m[2]))
-	else:
-		new_sub = str(int(m[0])+int(m[2])) # literal_eval()?
-	print(new_sub)
+	print(m)
+	new_sub = do_calcs(m)
 	# replace the match
 	return exp.replace(exp_match, new_sub)
 
@@ -29,14 +40,14 @@ def main():
     	data = [x.strip() for x in infile.readlines()]
 
     result = 0
-    foo = '2 * 3 + (4 * 5)'
+    foo = "5 + (8 * 3 + 9 + 3 * 4 * 3)"
     print(foo)
     while "(" in foo:
     	print(foo)
     	foo = reduce_parens(foo)
 
     print(foo)
-    print(literal_eval(foo)) # won't work with mult left over?
+    print(do_calcs(foo.split())) # won't work with mult left over?
 
     # search for parens with matching close parens
     # get operator
