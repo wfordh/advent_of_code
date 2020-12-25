@@ -21,12 +21,18 @@ def do_calcs(exp_list):
 
 def reduce_parens(exp):
 	# need to work on nested parens
-	exp_match = re.search(r"\(.*\)", exp).group()
-	# keep the match
-	print(exp_match)
-	m = re.sub(r"[\(\)]", "", exp_match).split()
-	print(m)
-	new_sub = do_calcs(m)
+	# move while in here??
+	exp_copy = exp
+	while "(" in exp_copy:
+		exp_match = re.search(r"^\(.*?\)", exp_copy).group()
+		# keep the match
+		print(exp_match)
+		# this is subbing all of them and we only want to sub the outer most set
+		# m = re.sub(r"[\(\)]", "", exp_match).split()
+		exp_copy = exp_match.lstrip("(").strip(")")
+		print(exp_copy)
+	# need to find innermost paren before doing this
+	new_sub = do_calcs(exp_copy.split())
 	# replace the match
 	return exp.replace(exp_match, new_sub)
 
@@ -38,7 +44,7 @@ def main():
     	data = [x.strip() for x in infile.readlines()]
 
     result = 0
-    foo = "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))"
+    foo = "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2"
     print(foo)
     while "(" in foo:
     	print(foo)
